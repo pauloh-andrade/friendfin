@@ -36,14 +36,14 @@ jobs:
 
       - name: Deploy to Staging
         run: |
-          ssh -o StrictHostKeyChecking=no root@147.79.107.45 "
-            cd /caminho/real/para/staging || mkdir -p /caminho/real/para/staging && cd /caminho/real/para/staging &&
+          ssh -o StrictHostKeyChecking=no root@147.79.107.45 
+          "cd /staging || mkdir -p /staging && cd /staging &&
             git clone https://github.com/pauloh-andrade/friendfin.git . &&
             docker-compose down && docker-compose up -d"
 
       - name: Deploy to Production
         run: |
           ssh -o StrictHostKeyChecking=no root@147.79.107.45 "
-            cd /caminho/real/para/production || mkdir -p /caminho/real/para/production && cd /caminho/real/para/production &&
+            cd /production || mkdir -p /production && cd /production &&
             git clone https://github.com/pauloh-andrade/friendfin.git . &&
             docker-compose down && docker-compose up -d"
