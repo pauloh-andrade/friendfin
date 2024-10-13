@@ -36,8 +36,14 @@ jobs:
 
       - name: Deploy to Staging
         run: |
-          ssh -o StrictHostKeyChecking=no user@your-staging-server "cd /path/to/staging && docker-compose down && docker-compose up -d"
+          ssh -o StrictHostKeyChecking=no root@147.79.107.45 "
+            cd /caminho/real/para/staging || mkdir -p /caminho/real/para/staging && cd /caminho/real/para/staging &&
+            git clone https://github.com/pauloh-andrade/friendfin.git . &&
+            docker-compose down && docker-compose up -d"
 
       - name: Deploy to Production
         run: |
-          ssh -o StrictHostKeyChecking=no user@your-production-server "cd /path/to/production && docker-compose down && docker-compose up -d"
+          ssh -o StrictHostKeyChecking=no root@147.79.107.45 "
+            cd /caminho/real/para/production || mkdir -p /caminho/real/para/production && cd /caminho/real/para/production &&
+            git clone https://github.com/pauloh-andrade/friendfin.git . &&
+            docker-compose down && docker-compose up -d"
