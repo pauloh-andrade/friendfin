@@ -33,6 +33,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 147.79.107.45 >> ~/.ssh/known_hosts
 
       - name: Deploy to Staging
         run: |
