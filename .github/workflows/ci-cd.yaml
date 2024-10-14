@@ -31,20 +31,24 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          echo "${{ secrets.VPS_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H 147.79.107.45 >> ~/.ssh/known_hosts
 
+      - name: Debug SSH
+        run: |
+          ssh -v root@147.79.107.45 "echo 'SSH connected!'"
+
       - name: Deploy to Staging
         run: |
-          ssh root@147.79.107.45 
-          "cd /staging || mkdir -p /staging && cd /staging &&
+          ssh -t root@147.79.107.45 "
+            cd /staging || mkdir -p /staging && cd /staging &&
             git clone https://github.com/pauloh-andrade/friendfin.git . &&
             docker-compose down && docker-compose up -d"
 
       - name: Deploy to Production
         run: |
-          ssh root@147.79.107.45 "
+          ssh -t root@147.79.107.45 "
             cd /production || mkdir -p /production && cd /production &&
             git clone https://github.com/pauloh-andrade/friendfin.git . &&
             docker-compose down && docker-compose up -d"
